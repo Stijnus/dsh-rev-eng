@@ -1,0 +1,77 @@
+{
+  "name": "dsh-rev-eng",
+  "version": "0.1.0",
+  "description": "Reverse engineer anything and build any Mac app: REA and BAMA agent skills, packaged as a DeepSeek Harness plugin bundle.",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src/",
+    "skills/",
+    "patches/",
+    "docs/",
+    "cordis.patch.yml",
+    "scripts/install.sh",
+    "scripts/install.ps1",
+    "scripts/lint-skills.mjs",
+    "README.md",
+    "PROVENANCE.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --check src/index.js && node --check src/frontmatter.js && node --check scripts/lint-skills.mjs && node --test test/plugin.test.mjs",
+    "lint:skills": "node scripts/lint-skills.mjs",
+    "pack:check": "npm pack --dry-run"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "skills",
+    "reverse-engineering",
+    "reversing",
+    "binary-analysis",
+    "decompiler",
+    "macos",
+    "swiftui",
+    "swift",
+    "agent",
+    "rea",
+    "bama"
+  ],
+  "author": {
+    "name": "Stijnus",
+    "url": "https://github.com/Stijnus"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stijnus/dsh-rev-eng.git"
+  },
+  "homepage": "https://github.com/Stijnus/dsh-rev-eng#readme",
+  "bugs": {
+    "url": "https://github.com/Stijnus/dsh-rev-eng/issues"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "compatibility": {
+      "dsh": ">=0.2.1-rc.3 <0.3.0-0"
+    },
+    "catalog": {
+      "summary": {
+        "en": "Reverse engineer apps, binaries and bundles with REA, and build native macOS apps with BAMA, as one installable skill pack.",
+        "zh": "\u7528 REA \u9006\u5411\u5206\u6790\u5e94\u7528\u3001\u4e8c\u8fdb\u5236\u4e0e\u6253\u5305\u4ea7\u7269\uff0c\u7528 BAMA \u6784\u5efa\u539f\u751f macOS \u5e94\u7528\uff0c\u4e00\u4e2a\u53ef\u5b89\u88c5\u7684\u6280\u80fd\u5305\u3002"
+      },
+      "category": "development"
+    }
+  },
+  "engines": {
+    "dsh": ">=0.2.1-rc.3 <0.3.0-0",
+    "node": ">=22"
+  }
+}

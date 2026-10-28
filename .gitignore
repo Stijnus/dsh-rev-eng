@@ -1,0 +1,8 @@
+# dsh-rev-eng working tree
+
+node_modules/
+vendor/
+.dsh-test/
+.npm-cache/
+*.tgz
+.DS_Store
