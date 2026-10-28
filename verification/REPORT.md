@@ -591,8 +591,22 @@ The Plugins page `Add plugin` dialog accepts `github:Stijnus/dsh-rev-eng`
 (and `https://github.com/Stijnus/dsh-rev-eng`) as a Git address, which runs the
 same inspect → pnpm → enable operation shown above.
 
-npm publishing was **not** performed: the registry returns 401 for the current
-npm client (no npm login/token in this environment). The name
-`dsh-rev-eng` is free on the public registry (HTTP 404), and `npm pack` produces
-the publishable `dsh-rev-eng@0.1.0` tarball. See README "Install" for the
-publish-ready status.
+npm publishing completed after this addendum was first drafted:
+
+- `dsh-rev-eng@0.1.0` is published: https://www.npmjs.com/package/dsh-rev-eng —
+  `dist-tags.latest = 0.1.0`, tarball shasum `1e449fa2228825b65fff16e1a0a05e83cdd72582`
+  (matches the locally packed tarball exactly).
+- The registry accepted the publish asynchronously (`PUT 202`, "may take a few
+  minutes"). During processing the name appeared only as `0.0.0-stage`
+  ("Temporary package placeholder for staged publishing"); the real version
+  landed about three minutes later and `latest` moved to `0.1.0`. The
+  placeholder remains listed in `versions` but is not what `npm install
+  dsh-rev-eng` resolves, because `latest` points at `0.1.0`.
+- npm install path verified in an isolated `DSH_HOME`:
+  `dsh plugin --profile npm-check add dsh-rev-eng` resolved `dsh-rev-eng 0.1.0`
+  from the public registry in 1.1s, wrote `dsh-rev-eng: ^0.1.0` into the profile,
+  and `--dump-config` composed `# == dsh-rev-eng → rev-eng-skills`.
+- Publishing required a browser 2FA approval for the `stijnus` account. The
+  non-TTY path (`EOTP` with redacted auth URLs) does not work; running
+  `npm publish` under a PTY (`script -q /dev/null …`) prints a real
+  `https://www.npmjs.com/auth/cli/<id>` URL and polls until approval.

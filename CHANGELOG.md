@@ -36,6 +36,8 @@ Harness plugin bundle with 23 skills.
 - README demo animation (`docs/demo/rev-eng.gif`) and asciinema recording
   (`docs/demo/rev-eng.cast`), rendered from a real `/rev-eng` session.
 - Package metadata for the dsh bundle layer and the dsh compatibility range.
+- Published to npm as `dsh-rev-eng@0.1.0` and to GitHub at
+  https://github.com/Stijnus/dsh-rev-eng.
 
 ### Notes
 

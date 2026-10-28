@@ -6,6 +6,9 @@ macOS app from idea to Dock. 23 skills total (21 BAMA + 1 REA + the `rev-eng`
 router) ride with every profile that installs the bundle, and the optional REA
 MCP server adds 229 analysis tools for sessions that need them.
 
+[![npm version](https://img.shields.io/npm/v/dsh-rev-eng?color=cb3837&label=npm)](https://www.npmjs.com/package/dsh-rev-eng)
+[![GitHub](https://img.shields.io/github/stars/Stijnus/dsh-rev-eng?label=GitHub&color=24292f)](https://github.com/Stijnus/dsh-rev-eng)
+
 Requires DeepSeek Harness `>=0.2.1-rc.3 <0.3.0-0` and Node.js >= 22.
 
 <p align="center">
@@ -120,7 +123,7 @@ to pnpm, so a local path, an npm package, or a Git spec all work:
 # from a checkout (installs as a link: dependency; the checkout must stay in place)
 dsh plugin --profile web add /absolute/path/to/dsh-rev-eng
 
-# from npm, once published
+# from npm
 dsh plugin --profile web add dsh-rev-eng
 
 # from git
@@ -140,8 +143,8 @@ dsh --profile web
 **Desktop app.** The `desktop` profile is managed exclusively by the app, and
 ordinary CLI boot or `--dump-config` of it is refused. Install from the app's
 **Plugins → Add plugin** dialog instead: it accepts a package name with an
-optional version, a Git address, a tarball, or the absolute path of a local
-checkout. It inspects the spec first (package manifest, bundle patch, and
+optional version (`dsh-rev-eng`), a Git address, a tarball, or the absolute path
+of a local checkout. It inspects the spec first (package manifest, bundle patch, and
 `engines.dsh` / peer compatibility), then runs the profile's package install and
 offers **Enable now**. This is the same inspect → package-install → enable
 operation the CLI performs, scoped to the running desktop profile. Uninstall
@@ -150,8 +153,9 @@ terminal: the desktop profile belongs to the app, and the Plugins page is the
 supported install path.
 
 A local-path install is saved as a `link:` dependency, so the checkout must stay
-where it is. For distribution to other machines, publish the package (or use a
-tarball or Git spec) and install that spec through the CLI or the Plugins page.
+where it is. For distribution to other machines, publish a new version, push a
+Git tag, or upload a tarball and install that spec through the CLI or the
+Plugins page.
 
 ### Option 2: drop-in skill copy (no bundle)
 
