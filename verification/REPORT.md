@@ -610,3 +610,31 @@ npm publishing completed after this addendum was first drafted:
   non-TTY path (`EOTP` with redacted auth URLs) does not work; running
   `npm publish` under a PTY (`script -q /dev/null …`) prints a real
   `https://www.npmjs.com/auth/cli/<id>` URL and polls until approval.
+
+### Desktop-profile bundle install (executed)
+
+After the release the bundle was installed into the real Electron-managed
+`desktop` profile, using the app's own bundled CLI while the app was running:
+
+```sh
+dsh plugin --profile desktop add dsh-rev-eng
+# dependencies:
+# + dsh-rev-eng 0.1.0
+# Done in 1.4s using pnpm v11.28.5
+```
+
+- `~/.dsh/profiles/desktop/package.json` gained `"dsh-rev-eng": "^0.1.0"` in
+  `dependencies` and `dsh-rev-eng` at the end of `dsh.profile.bundles`; pnpm
+  updated the profile lockfile and `node_modules/dsh-rev-eng` (0.1.0).
+- Composition was proved without booting the Electron profile: a renamed copy
+  of the profile under an isolated `DSH_HOME` dumped `# == dsh-rev-eng` →
+  `- id: rev-eng-skills / name: dsh-rev-eng`.
+- Bundle composition is assembled at boot, so the install takes effect after a
+  full app restart; the Plugins page then lists the bundle.
+- The Electron-managed guard is enforced by argument parsing for a standalone
+  `dsh`; the app's bundled CLI passes `manageDesktopProfile` and performs the
+  same profile operation the Plugins page does. The Plugins page remains the
+  supported path for users.
+- Single-channel cleanup: the drop-in copy in `~/.dsh/skills` was removed with
+  `scripts/install.sh --uninstall` after the bundle install, so only the bundle
+  provider claims the 23 skill names.
