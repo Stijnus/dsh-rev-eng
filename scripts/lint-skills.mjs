@@ -192,6 +192,22 @@ async function main() {
         fail(`skills/${name}/SKILL.md: "${key}" must be true or false`)
       }
     }
+    // dsh parses frontmatter with a real YAML parser, while the flat subset above
+    // is line-oriented. Values that YAML reads differently must never ship: a
+    // colon-space would turn the value into a nested mapping (the whole skill is
+    // then silently ignored), a space-hash starts a comment, and a leading
+    // indicator character changes the scalar type.
+    for (const [key, value] of Object.entries(fields)) {
+      if (value.includes(': ')) {
+        fail(`skills/${name}/SKILL.md: "${key}" contains a colon-space, which YAML reads as a nested mapping`)
+      }
+      if (value.includes(' #')) {
+        fail(`skills/${name}/SKILL.md: "${key}" contains a space-hash, which YAML reads as a comment`)
+      }
+      if (/^[\[\]{}&*!|>'"%@`-]/.test(value)) {
+        fail(`skills/${name}/SKILL.md: "${key}" starts with a YAML indicator character`)
+      }
+    }
     if (body.trim() === '') fail(`skills/${name}/SKILL.md: body is empty`)
     if (!/^#\s/m.test(body)) warn(`skills/${name}/SKILL.md: body has no top-level heading`)
 

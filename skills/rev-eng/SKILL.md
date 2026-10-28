@@ -1,6 +1,6 @@
 ---
 name: rev-eng
-description: Entry point for this pack: reverse engineer shipped apps, binaries, firmware, Android packages, and bundled JavaScript with REA, or research, design, build, test, and ship native macOS apps with Swift and SwiftUI using BAMA. Use when the user asks to reverse engineer, decompile, inspect, compare, clone, or reconstruct an app or binary, or to plan, build, or polish a native Mac app.
+description: Entry point for the dsh-rev-eng pack. Reverse engineer shipped apps, binaries, firmware, Android packages, and bundled JavaScript with REA, or research, design, build, test, and ship native macOS apps with Swift and SwiftUI using BAMA. Use when the user asks to reverse engineer, decompile, inspect, compare, clone, or reconstruct an app or binary, or to plan, build, or polish a native Mac app.
 ---
 
 # Reverse engineering and native Mac apps

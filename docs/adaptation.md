@@ -67,6 +67,12 @@ and by the plugin's own parser in [`src/frontmatter.js`](../src/frontmatter.js):
 - `name` must be kebab-case and equal the directory name.
 - `description` is one physical line of at most 500 characters, says what the
   skill is, and contains a "Use when ..." trigger sentence.
+- Every scalar must be YAML-safe: no `: ` (colon-space), no ` #` (space-hash),
+  and no leading YAML indicator character. dsh parses frontmatter with a real
+  YAML parser while the pack's flat parser is line-oriented, so a colon-space
+  would silently turn the value into a nested mapping and the whole skill would
+  be ignored. The lint rejects these forms explicitly (this caught the router
+  description during the build).
 - `disable-model-invocation: true` only on the user-invoked `bama` router.
   `rev-eng` stays model-invocable because the model routes through it.
 - The plugin serves the skills at rank 400 with source `bundled`; see
