@@ -566,3 +566,33 @@ ran with `DSH_HOME` pointed inside the workspace. The desktop app kept serving t
 (checked on `http://127.0.0.1:49199`), and no desktop-profile package operation was
 executed from this session. (The user's own plugin updates to that profile are unrelated
 to this verification and were not performed by it.)
+
+---
+
+## Addendum (2026-10-28, after publication)
+
+The package was pushed to **https://github.com/Stijnus/dsh-rev-eng** (public,
+branch `main`, topics `dsh-plugin`, `deepseek-harness`, `agent-skills`,
+`reverse-engineering`, `macos`, `swiftui`). Two paths that were previously
+untested are now verified:
+
+Git spec install, isolated `DSH_HOME`:
+
+```sh
+DSH_HOME="$PWD/.git-check/home" dsh plugin --profile git-check add github:Stijnus/dsh-rev-eng
+# dependencies:
+# + dsh-rev-eng 0.1.0
+# Done in 2.1s using pnpm v11.28.5
+DSH_HOME="$PWD/.git-check/home" dsh --profile git-check --dump-config
+# exit 0; "# == dsh-rev-eng" → "- id: rev-eng-skills / name: dsh-rev-eng"
+```
+
+The Plugins page `Add plugin` dialog accepts `github:Stijnus/dsh-rev-eng`
+(and `https://github.com/Stijnus/dsh-rev-eng`) as a Git address, which runs the
+same inspect → pnpm → enable operation shown above.
+
+npm publishing was **not** performed: the registry returns 401 for the current
+npm client (no npm login/token in this environment). The name
+`dsh-rev-eng` is free on the public registry (HTTP 404), and `npm pack` produces
+the publishable `dsh-rev-eng@0.1.0` tarball. See README "Install" for the
+publish-ready status.
