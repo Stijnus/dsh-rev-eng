@@ -33,6 +33,8 @@ Harness plugin bundle with 23 skills.
   agent root. Flags: `--list`, `--uninstall`.
 - Documentation: `README.md`, `PROVENANCE.md`, `docs/adaptation.md`, and the
   verbatim upstream disclaimer at `docs/rea-disclaimer.md`.
+- README demo animation (`docs/demo/rev-eng.gif`) and asciinema recording
+  (`docs/demo/rev-eng.cast`), rendered from a real `/rev-eng` session.
 - Package metadata for the dsh bundle layer and the dsh compatibility range.
 
 ### Notes

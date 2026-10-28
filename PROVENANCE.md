@@ -54,6 +54,8 @@ New in this package:
   [docs/adaptation.md](docs/adaptation.md), [docs/rea-disclaimer.md](docs/rea-disclaimer.md),
   and this file.
 - The verification harness under `verification/`.
+- The README demo animation and asciinema recording under `docs/demo/`, whose
+  prompt and answer were captured from a real dsh session.
 
 Not shipped: the staged upstream sources (`vendor/`) are a development
 artifact regenerated from the pinned upstream versions, and `package.json`

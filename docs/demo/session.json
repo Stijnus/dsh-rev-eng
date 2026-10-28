@@ -1,0 +1,20 @@
+{
+  "header": "dsh 0.2.1-rc.3  ·  profile desktop  ·  23 skills installed",
+  "footer": "real prompt + model answer  ·  typing animated",
+  "prompt_trigger": "/rev-eng",
+  "prompt": "Two jobs: (1) list the IPC channels of an Electron app from its app.asar, (2) build a native macOS menu-bar clipboard app from a brief. Which skill do you load for each? One short line each.",
+  "answer": [
+    {
+      "skill": "reverse-engineer-anything",
+      "text": "List an Electron app's IPC channels from app.asar by static JavaScript inspection."
+    },
+    {
+      "skill": "bama",
+      "text": "Build a native macOS menu-bar clipboard app from a brief through the BAMA pipeline."
+    }
+  ],
+  "timestamp": 1793180123,
+  "captured": "2026-10-28",
+  "model_route": "deepseek-flash (deepseek-account)",
+  "note": "Prompt and answer are verbatim from a real dsh agent run with dsh-rev-eng installed; the GIF animates typing only."
+}

@@ -8,6 +8,12 @@ MCP server adds 229 analysis tools for sessions that need them.
 
 Requires DeepSeek Harness `>=0.2.1-rc.3 <0.3.0-0` and Node.js >= 22.
 
+<p align="center">
+  <img src="docs/demo/rev-eng.gif" width="900" alt="A dsh session routes a two-job prompt through /rev-eng: reverse-engineer-anything for an Electron app.asar, bama for a native macOS app.">
+</p>
+
+<p align="center"><sub>Real <code>/rev-eng</code> session: the prompt and the model answer are verbatim, only the typing is animated. <a href="docs/demo/session.txt">Transcript</a> · <a href="docs/demo/rev-eng.cast">asciinema recording</a></sub></p>
+
 ## What you get
 
 ### Reverse engineering with REA
@@ -430,6 +436,7 @@ npm test                    # syntax checks + plugin unit tests
 npm run lint:skills         # validate every SKILL.md, link, and frontmatter rule
 ./verification/verify.sh    # acceptance gate in an isolated DSH_HOME
 ./verification/verify.sh --full   # plus a live boot and REA MCP connection check
+python3 scripts/make-demo-gif.py  # rebuild the README demo GIF and asciinema cast
 ```
 
 The gate never touches your real dsh home or desktop profile.
