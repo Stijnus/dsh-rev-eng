@@ -4,5 +4,10 @@ node_modules/
 vendor/
 .dsh-test/
 .npm-cache/
+/.pnpm-store/
 *.tgz
 .DS_Store
+
+# Local REA investigation scratch: raw device captures and vendored upstream files
+/probe/
+/research/
