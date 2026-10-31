@@ -1,0 +1,5 @@
+# The bundle layer. One insert row; `name` resolves to this package, whose
+# main module is the Cordis plugin in src/index.js.
+- insert:
+    - id: example-skills
+      name: dsh-example-skill-pack

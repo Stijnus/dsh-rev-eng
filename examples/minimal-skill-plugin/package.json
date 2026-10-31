@@ -1,0 +1,17 @@
+{
+  "name": "dsh-example-skill-pack",
+  "version": "0.0.1",
+  "description": "Minimum viable DeepSeek Harness plugin: one skill, one provider, no dependencies.",
+  "type": "module",
+  "main": "src/index.js",
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "dsh": ">=0.2.1-rc.3 <0.3.0-0",
+    "node": ">=22"
+  }
+}
