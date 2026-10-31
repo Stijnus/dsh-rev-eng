@@ -111,7 +111,10 @@ own.
 Two channels: install the bundle into a dsh profile, or copy the skill
 directories into a skill root. Use one channel. Do not do both: the two copies
 claim the same skill names, and the duplicate resolution depends on provider
-order rather than on which copy you meant to use.
+order rather than on which copy you meant to use. The bundle is the default
+channel because it also installs the provider that serves the packaged skills;
+[Why a bundle and not just skills](#why-a-bundle-and-not-just-skills) explains
+the split.
 
 ### Option 1: install the bundle (recommended)
 
@@ -317,10 +320,6 @@ the agent which skill comes next.
   and configured custom directories (rank 300) still win. A drop-in copy in
   `~/.dsh/skills` is also rank 400, which is why the two install channels should
   not be combined.
-- A provider is used instead of a `customSkillDirs` entry because the profile's
-  composition base URL is the profile directory, not this package. Packaged
-  skills have to ride with plugin code that resolves its own paths from
-  `import.meta.url`, so the bundle works wherever the package is installed.
 - The `rev-eng` router is packaged as a normal skill. `bama` keeps
   `disable-model-invocation: true`, so it is user-invoked with `/bama`; the
   other 22 skills are model-invocable.
@@ -330,6 +329,52 @@ the agent which skill comes next.
   directory to an already-installed package needs a new session. The drop-in
   copy path uses dsh's watched local provider, so additions there appear without
   a restart.
+
+### Why a bundle and not just skills
+
+The skills are plain Markdown, and a directory of them works without this
+package: that is [Option 2](#option-2-drop-in-skill-copy-no-bundle). The plugin
+is not a duplicate of the skills; it is the install mechanism for them. A
+package cannot make dsh load skill files by itself. In the supported dsh line
+(0.2.1), a plugin bundle contributes a profile layer only through
+`dsh.bundle.patch`; a dependency that declares no bundle is installed as a plain
+package, and dsh does not scan the files inside it. There is no manifest field
+that mounts a skill directory in place of that row.
+
+So the install path has three links: the bundle patch inserts the
+`rev-eng-skills` row, the row mounts [`src/index.js`](src/index.js), and the
+provider resolves `skills/` from `import.meta.url` and serves the catalog. The
+provider is the smallest portable way to do that. A `customSkillDirs` row would
+need an absolute path: dsh resolves relative entries against the process working
+directory, which is the user's workspace, not the profile or package directory.
+A hardcoded `node_modules/dsh-rev-eng` path would assume the profile name and
+layout. dsh itself packages skill-carrying bundles the same way:
+`dsh-skill-badge` and `dsh-skill-office` register providers over package-relative
+asset directories, and `dsh-experimental-badge-skill-bundle` is a bundle whose
+entire patch is the one row that mounts its provider.
+
+What the bundle adds over a copied skill directory:
+
+| | Bundle | Drop-in copy |
+| --- | --- | --- |
+| Install | `dsh plugin --profile <name> add dsh-rev-eng` | clone the repository, then run `scripts/install.sh` |
+| Scope | one profile | every profile that watches the chosen skill root |
+| Updates | install the next package version | re-run the installer |
+| Removal | Plugins UI, or `dsh plugin --profile <name> remove dsh-rev-eng` | `scripts/install.sh --uninstall` |
+| Visibility | listed under Plugins and can be enabled or disabled | plain files in a skill root |
+
+The trade-off is a provider API surface: about 200 dependency-free lines in
+[`src/index.js`](src/index.js) and [`src/frontmatter.js`](src/frontmatter.js)
+that track `ctx.skills` across dsh releases. That is the cost of the install
+channel, not of the skills.
+
+Removing the plugin layer would not reduce the package to "just skills": it
+would make `dsh plugin add dsh-rev-eng` install an inert dependency whose 23
+skill directories nothing serves. The package would then be a tarball for
+[Option 2](#option-2-drop-in-skill-copy-no-bundle), and the npm/Git install path
+would no longer exist. Keep the bundle while `dsh-rev-eng` is distributed as a
+package; choose Option 2 when the skills only need to exist on your own machine
+and you do not want a profile dependency.
 
 ## Differences from upstream
 
